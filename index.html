@@ -41,23 +41,40 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 /* ── LEFT SIDE NAV ──────────────────────── */
 .side-nav{
   position:fixed;left:0;top:0;bottom:0;z-index:100;
-  width:200px;
+  width:60px;
   display:flex;flex-direction:column;
-  padding:28px 24px;
+  padding:20px 0;
   background:rgba(10,10,11,.6);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-right:1px solid var(--border);
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
 }
+.side-nav.open{width:200px}
+.side-nav-header{
+  display:flex;align-items:center;gap:10px;
+  padding:0 14px 0 14px;margin-bottom:36px;
+  min-height:28px;
+}
+.side-nav-toggle{
+  width:32px;height:32px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;cursor:pointer;
+  color:var(--text-2);transition:color .2s,background .2s;
+}
+.side-nav-toggle:hover{color:var(--text-1);background:rgba(255,255,255,.06)}
+.side-nav-toggle svg{width:18px;height:18px;display:block}
 .side-nav-logo{
-  font-family:var(--font);font-weight:800;font-size:16px;
+  font-family:var(--font);font-weight:800;font-size:15px;
   letter-spacing:.06em;color:var(--text-1);
-  margin-bottom:48px;
-  opacity:.9;transition:opacity .2s;
+  white-space:nowrap;opacity:0;
+  transition:opacity .2s;pointer-events:none;
 }
+.side-nav.open .side-nav-logo{opacity:.9;pointer-events:auto}
 .side-nav-logo:hover{opacity:1}
 .side-nav-dots{
   display:flex;flex-direction:column;gap:4px;
-  margin-bottom:auto;
+  margin-bottom:auto;padding:0 10px;
 }
 .side-nav-dot{
   display:flex;align-items:center;gap:12px;
@@ -65,8 +82,12 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
   padding:10px 12px;border-radius:8px;
   font-size:14px;font-weight:500;color:var(--text-3);
   transition:color .2s,background .2s;
-  text-align:left;
+  text-align:left;white-space:nowrap;
 }
+.side-nav-dot-label{
+  opacity:0;transition:opacity .2s;
+}
+.side-nav.open .side-nav-dot-label{opacity:1}
 .side-nav-dot::before{
   content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;
   background:rgba(255,255,255,.15);
@@ -79,20 +100,36 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
   transform:scale(1.2);
 }
 .side-nav-dot:hover{color:var(--text-2);background:rgba(255,255,255,.03)}
+.side-nav-bottom{padding:0 10px}
 .side-nav-cta{
   font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
   background:var(--accent);color:#fff;
   border:none;border-radius:40px;padding:12px 20px;
   text-decoration:none;text-align:center;
   transition:background .15s;
+  white-space:nowrap;
+  display:none;
 }
+.side-nav.open .side-nav-cta{display:block}
 .side-nav-cta:hover{background:#6C63B5}
+.side-nav-cta-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  text-decoration:none;margin:0 auto;
+  transition:background .15s,transform .15s;
+}
+.side-nav.open .side-nav-cta-icon{display:none}
+.side-nav-cta-icon:hover{background:#6C63B5;transform:scale(1.08)}
+.side-nav-cta-icon svg{width:20px;height:20px;display:block}
 
 /* ── HORIZONTAL SCROLL CONTAINER ────────── */
 .scroll-wrapper{
   position:relative;
-  margin-left:200px;
+  margin-left:60px;
+  transition:margin-left .35s cubic-bezier(.4,0,.2,1);
 }
+body.nav-open .scroll-wrapper{margin-left:200px}
 .scroll-track{
   position:sticky;top:0;
   height:100vh;
@@ -106,7 +143,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 }
 .slide{
   flex:0 0 100%;
-  width:calc(100vw - 200px);
+  width:calc(100vw - 60px);
   height:100vh;
   display:flex;align-items:center;justify-content:center;
   position:relative;
@@ -473,7 +510,8 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 /* ── SCROLL PROGRESS ────────────────────── */
 .scroll-progress{
-  position:fixed;top:0;left:200px;right:0;height:2px;z-index:99;
+  position:fixed;top:0;left:60px;right:0;height:2px;z-index:99;
+  transition:left .35s cubic-bezier(.4,0,.2,1);
   background:var(--border);
 }
 .scroll-progress-bar{
@@ -484,7 +522,8 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 /* ── STICKY COUNTER ─────────────────────── */
 .sticky-counter{
-  position:fixed;bottom:0;left:200px;right:0;z-index:90;
+  position:fixed;bottom:0;left:60px;right:0;z-index:90;
+  transition:left .35s cubic-bezier(.4,0,.2,1);
   background:rgba(10,10,11,.85);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-top:1px solid var(--border);
@@ -534,15 +573,25 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 <!-- SIDE NAV -->
 <nav class="side-nav" id="side-nav">
-  <a href="#" class="side-nav-logo">LUMIR PHOTO</a>
-  <div class="side-nav-dots">
-    <button class="side-nav-dot active" data-slide="0" type="button">Главная</button>
-    <button class="side-nav-dot" data-slide="1" type="button">Демо</button>
-    <button class="side-nav-dot" data-slide="2" type="button">Возможности</button>
-    <button class="side-nav-dot" data-slide="3" type="button">Стоимость</button>
-    <button class="side-nav-dot" data-slide="4" type="button">Premium</button>
+  <div class="side-nav-header">
+    <button class="side-nav-toggle" id="nav-toggle" type="button" aria-label="Меню">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="#" class="side-nav-logo">LUMIR PHOTO</a>
   </div>
-  <a href="https://fotoklass.lumir.photo/projects" class="side-nav-cta">Войти</a>
+  <div class="side-nav-dots">
+    <button class="side-nav-dot active" data-slide="0" type="button"><span class="side-nav-dot-label">Главная</span></button>
+    <button class="side-nav-dot" data-slide="1" type="button"><span class="side-nav-dot-label">Демо</span></button>
+    <button class="side-nav-dot" data-slide="2" type="button"><span class="side-nav-dot-label">Возможности</span></button>
+    <button class="side-nav-dot" data-slide="3" type="button"><span class="side-nav-dot-label">Стоимость</span></button>
+    <button class="side-nav-dot" data-slide="4" type="button"><span class="side-nav-dot-label">Premium</span></button>
+  </div>
+  <div class="side-nav-bottom">
+    <a href="https://fotoklass.lumir.photo/projects" class="side-nav-cta-icon" aria-label="Войти">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </a>
+    <a href="https://fotoklass.lumir.photo/projects" class="side-nav-cta">Войти</a>
+  </div>
 </nav>
 
 <!-- PROGRESS BAR -->
@@ -677,7 +726,6 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
                   <p class="pv-v2-footnote">Первым 500 фотографам — хватит на 10 классов</p>
                 </div>
               </div>
-              <a href="https://fotoklass.lumir.photo/projects" class="btn-primary" style="margin-top:8px">Попробовать</a>
             </div>
           </div>
         </div>
@@ -771,6 +819,14 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 <script>
 (function(){
+  // Nav toggle
+  var sideNav = document.getElementById('side-nav');
+  var navToggle = document.getElementById('nav-toggle');
+  navToggle.addEventListener('click', function() {
+    sideNav.classList.toggle('open');
+    document.body.classList.toggle('nav-open');
+  });
+
   var slides = document.querySelectorAll('.slide');
   var dots = document.querySelectorAll('.side-nav-dot');
   var wrapper = document.getElementById('scroll-wrapper');
