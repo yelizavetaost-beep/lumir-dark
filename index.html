@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Автовёрстка индивидуальных школьных альбомов — LUMIR PHOTO</title>
+<meta name="description" content="Lumir распознаёт лица, выбирает лучшие кадры и собирает индивидуальные альбомы для каждого ребёнка автоматически." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;
+  --bg-card:#111113;
+  --bg-hover:#18181b;
+  --border:rgba(255,255,255,.06);
+  --border-hover:rgba(255,255,255,.12);
+  --text-1:rgba(255,255,255,.92);
+  --text-2:rgba(255,255,255,.56);
+  --text-3:rgba(255,255,255,.32);
+  --accent:#8b7ff5;
+  --accent-dim:rgba(139,127,245,.12);
+  --accent-glow:rgba(139,127,245,.08);
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text-1);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit}
+img{display:block;max-width:100%}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ── NAV ─────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  padding:16px 0;
+  background:rgba(10,10,11,.8);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1080px;margin:0 auto;padding:0 24px;
+}
+.nav-logo{
+  font-weight:700;font-size:16px;letter-spacing:-.02em;
+  color:var(--text-1);display:flex;align-items:center;gap:8px;
+}
+.nav-logo .mark{
+  width:20px;height:20px;border-radius:6px;
+  background:linear-gradient(135deg,var(--accent),#d87891);
+}
+.nav-links{display:flex;gap:32px;font-size:14px;color:var(--text-2)}
+.nav-links a{transition:color .15s}
+.nav-links a:hover{color:var(--text-1)}
+.nav-cta{
+  font-size:13px;font-weight:600;
+  color:var(--text-1);
+  padding:8px 18px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  transition:border-color .15s,background .15s;
+}
+.nav-cta:hover{border-color:var(--border-hover);background:var(--bg-hover)}
+
+/* ── HERO ────────────────────────────────── */
+.hero{
+  padding:120px 0 100px;
+  text-align:center;
+  position:relative;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse,rgba(139,127,245,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:500;color:var(--accent);
+  background:var(--accent-dim);
+  border:1px solid rgba(139,127,245,.15);
+  border-radius:100px;padding:6px 16px;
+  margin-bottom:32px;
+}
+.hero-badge .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+}
+h1{
+  font-size:clamp(40px,6vw,64px);
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.035em;
+  color:var(--text-1);
+  max-width:20ch;
+  margin:0 auto 24px;
+}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#8b7ff5 0%,#d87891 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{
+  font-size:clamp(16px,1.5vw,18px);
+  color:var(--text-2);
+  max-width:48ch;
+  margin:0 auto 48px;
+  line-height:1.6;
+}
+/* ── HERO VIDEO ──────────────────────────── */
+.hero-video-wrap{
+  position:relative;
+  width:100%;max-width:820px;
+  margin:0 auto 40px;
+  border-radius:14px;
+  overflow:hidden;
+  background:#000;
+  aspect-ratio:4/3;
+  border:1px solid var(--border);
+  box-shadow:0 8px 40px rgba(139,127,245,.08),0 2px 8px rgba(0,0,0,.4);
+}
+.hero-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  display:block;object-fit:cover;
+  background:#000;
+}
+.hero-video-placeholder{
+  position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(ellipse at 20% 20%,rgba(139,127,245,.18) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 80%,rgba(216,120,145,.12) 0%,transparent 50%),
+    linear-gradient(135deg,#0d0b14 0%,#151220 50%,#0d0b14 100%);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .3s;
+}
+.hero-video-placeholder-inner{
+  text-align:center;padding:40px;max-width:420px;
+}
+.hero-video-placeholder-inner h3{
+  font-size:clamp(20px,3vw,28px);font-weight:700;
+  letter-spacing:-.02em;line-height:1.15;
+  color:rgba(255,255,255,.9);margin-bottom:10px;
+}
+.hero-video-placeholder-inner h3 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#c8b6ff,#f5b6cb);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-video-placeholder-inner p{
+  font-size:14px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:14px;
+}
+.hero-video-meta-chips{
+  display:flex;gap:6px;justify-content:center;
+}
+.hero-video-meta-chips span{
+  font-size:11px;font-weight:600;letter-spacing:.06em;
+  color:rgba(255,255,255,.4);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:100px;padding:4px 10px;
+}
+.hero-video-play{
+  position:absolute;z-index:2;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  width:72px;height:72px;border-radius:50%;
+  background:var(--accent);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(139,127,245,.4),0 0 0 8px rgba(139,127,245,.12);
+  transition:transform .2s,box-shadow .2s;
+}
+.hero-video-play:hover{
+  transform:translate(-50%,-50%) scale(1.06);
+  box-shadow:0 12px 36px rgba(139,127,245,.5),0 0 0 14px rgba(139,127,245,.15);
+}
+.hero-video-play svg{width:28px;height:28px;margin-left:3px}
+.hero-video-wrap.playing .hero-video-play,
+.hero-video-wrap.playing .hero-video-placeholder{opacity:0;pointer-events:none}
+
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;font-weight:600;
+  color:#fff;
+  background:var(--accent);
+  padding:12px 28px;
+  border-radius:10px;
+  transition:opacity .15s,transform .1s;
+}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;font-weight:500;
+  color:var(--text-2);
+  padding:12px 28px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  transition:color .15s,border-color .15s;
+}
+.btn-ghost:hover{color:var(--text-1);border-color:var(--border-hover)}
+
+/* ── FEATURES GRID ───────────────────────── */
+.features{padding:80px 0;border-top:1px solid var(--border)}
+.features-head{text-align:center;margin-bottom:56px}
+.features-head h2{
+  font-size:clamp(28px,4vw,40px);
+  font-weight:700;letter-spacing:-.03em;
+  margin-bottom:12px;
+}
+.features-head p{font-size:16px;color:var(--text-2);max-width:48ch;margin:0 auto}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+.card{
+  background:var(--bg-card);
+  padding:32px 28px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .2s;
+}
+.card:hover{background:var(--bg-hover)}
+.card-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--accent-dim);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);margin-bottom:4px;
+}
+.card-icon svg{width:18px;height:18px}
+.card h3{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.card p{font-size:14px;line-height:1.55;color:var(--text-2)}
+
+/* ── INFOGRAPHIC ─────────────────────────── */
+.info-row{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:40px;align-items:center;
+  padding:64px 0;
+  border-top:1px solid var(--border);
+}
+.info-label{
+  font-size:12px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-3);
+  text-align:center;margin-top:16px;
+}
+.faces-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:6px;max-width:200px;margin:0 auto;
+}
+.face{
+  aspect-ratio:1;border-radius:50%;
+  background:linear-gradient(135deg,rgba(139,127,245,.4),rgba(216,120,145,.3));
+  border:1px solid rgba(255,255,255,.06);
+}
+.face:nth-child(3n+1){background:linear-gradient(135deg,#8b7ff5 0%,#c86898 100%)}
+.face:nth-child(3n+2){background:linear-gradient(135deg,#d87891 0%,#f2b98d 100%)}
+.face:nth-child(3n){background:linear-gradient(135deg,#6b8fd8 0%,#9b5ed0 100%)}
+.arrow-col{display:flex;flex-direction:column;align-items:center;gap:8px}
+.arrow-line{
+  width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  position:relative;
+}
+.arrow-line::after{
+  content:'';position:absolute;right:-4px;top:-4px;
+  width:0;height:0;
+  border-left:8px solid var(--accent);
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+}
+.arrow-badge{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-dim);
+  border:1px solid rgba(139,127,245,.2);
+  border-radius:100px;padding:5px 14px;
+}
+.albums-stack{position:relative;width:180px;height:140px;margin:0 auto}
+.album-card{
+  position:absolute;width:65%;
+  aspect-ratio:4/3;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+}
+.album-card .inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;height:100%;
+}
+.album-page{padding:6px;display:flex;flex-direction:column;gap:3px}
+.album-page+.album-page{border-left:1px solid var(--border)}
+.album-photo{flex:1;border-radius:3px;background:rgba(139,127,245,.15);min-height:0}
+.album-line{height:2px;border-radius:1px;background:rgba(255,255,255,.06)}
+.album-line.short{width:60%}
+.a1{left:0;top:0;transform:rotate(-5deg);z-index:1}
+.a1 .album-photo{background:linear-gradient(135deg,#8b7ff5,#c86898)}
+.a2{left:15%;top:18%;transform:rotate(2deg);z-index:2}
+.a2 .album-photo{background:linear-gradient(135deg,#d87891,#f2b98d)}
+.a3{left:30%;top:36%;transform:rotate(7deg);z-index:3}
+.a3 .album-photo{background:linear-gradient(135deg,#6b8fd8,#9b5ed0)}
+.album-count{
+  position:absolute;right:-6px;top:-10px;z-index:10;
+  font-size:11px;font-weight:700;
+  color:#fff;background:var(--accent);
+  padding:4px 10px;border-radius:100px;
+}
+
+/* ── PRICING ─────────────────────────────── */
+.pricing{
+  padding:80px 0;
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+.price-card{
+  display:inline-flex;flex-direction:column;align-items:center;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:48px 56px 40px;
+  position:relative;
+  max-width:480px;
+  width:100%;
+}
+.price-card::before{
+  content:'';position:absolute;
+  top:0;left:24px;right:24px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.price-tag{
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+.price-amount{
+  font-size:clamp(56px,10vw,80px);
+  font-weight:700;letter-spacing:-.04em;line-height:.9;
+  background:linear-gradient(135deg,#8b7ff5 0%,#d87891 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:8px;
+}
+.price-amount span{font-size:.5em;font-weight:600}
+.price-unit{font-size:16px;color:var(--text-2);margin-bottom:32px}
+.price-meta{
+  width:100%;
+  border-top:1px solid var(--border);
+  display:flex;flex-direction:column;
+}
+.price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+.price-row:last-child{border-bottom:0}
+.price-row .label{color:var(--text-2)}
+.price-row .value{font-weight:600;color:var(--text-1)}
+.price-row .value.accent{color:var(--accent)}
+.price-promo{
+  display:flex;align-items:center;gap:12px;
+  margin-top:28px;
+  padding:14px 20px;
+  background:var(--accent-dim);
+  border:1px solid rgba(139,127,245,.15);
+  border-radius:12px;
+  width:100%;
+}
+.price-promo .dot{
+  width:8px;height:8px;border-radius:50%;background:#10b981;flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(16,185,129,.4);
+  animation:pulse-dot 2s infinite;
+}
+@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(16,185,129,.4)}100%{box-shadow:0 0 0 10px rgba(16,185,129,0)}}
+.price-promo p{font-size:13px;color:var(--text-2);text-align:left}
+.price-promo strong{color:var(--accent);font-weight:600}
+
+/* ── FAQ ─────────────────────────────────── */
+.faq{padding:80px 0;border-top:1px solid var(--border)}
+.faq h2{
+  font-size:clamp(28px,4vw,40px);font-weight:700;
+  letter-spacing:-.03em;text-align:center;margin-bottom:48px;
+}
+.faq-list{max-width:640px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.faq-q{
+  width:100%;text-align:left;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:20px 0;
+  font-size:15px;font-weight:500;
+  color:var(--text-1);
+  transition:color .15s;
+}
+.faq-q:hover{color:var(--accent)}
+.faq-toggle{
+  width:24px;height:24px;flex-shrink:0;
+  border-radius:6px;
+  background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text-3);
+  transition:transform .25s,background .15s,color .15s;
+}
+.faq-item[data-open="true"] .faq-toggle{transform:rotate(45deg);background:var(--accent-dim);color:var(--accent)}
+.faq-a{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .3s ease;
+}
+.faq-item[data-open="true"] .faq-a{grid-template-rows:1fr}
+.faq-a>div{overflow:hidden}
+.faq-a-content{
+  padding:0 0 20px;
+  font-size:14px;line-height:1.65;color:var(--text-2);
+  max-width:56ch;
+}
+
+/* ── FOOTER ──────────────────────────────── */
+footer{
+  padding:48px 0 40px;
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+.footer-brand{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:600;font-size:14px;color:var(--text-2);
+  margin-bottom:16px;
+}
+.footer-brand .mark{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,var(--accent),#d87891)}
+.footer-links{
+  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;
+  font-size:13px;color:var(--text-3);
+  margin-bottom:24px;
+}
+.footer-links a{transition:color .15s}
+.footer-links a:hover{color:var(--text-2)}
+.footer-copy{font-size:12px;color:var(--text-3)}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media(max-width:768px){
+  .grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero{padding:80px 0 64px}
+  .info-row{grid-template-columns:1fr;gap:24px}
+  .arrow-line{transform:rotate(90deg);width:60px}
+  .price-card{padding:36px 28px 32px}
+  .hero-ctas{flex-direction:column;align-items:center}
+  .btn-primary,.btn-ghost{width:100%;max-width:280px;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span class="mark"></span>Lumir</div>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Стоимость</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="https://fotoklass.lumir.photo/projects" class="nav-cta">Войти</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span class="dot"></span>Первым 500 — 10 000 ₽ на баланс</div>
+    <h1><em>Автовёрстка</em> индивидуальных школьных альбомов</h1>
+    <p class="hero-sub">Загрузите съёмку — Lumir распознает лица, выберет лучшие кадры и соберёт индивидуальный альбом каждому ребёнку</p>
+
+    <div class="hero-video-wrap" id="hero-video-wrap">
+      <video class="hero-video" id="hero-video" preload="metadata" playsinline controls>
+        <source src="placeholder-4x3.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-video-placeholder" aria-hidden="true">
+        <div class="hero-video-placeholder-inner">
+          <h3>От папки фотографий до <em>готового альбома</em></h3>
+          <p>Распознавание лиц, AI-вёрстка, выгрузка в типографию</p>
+          <div class="hero-video-meta-chips"><span>02:14</span><span>HD</span></div>
+        </div>
+      </div>
+      <button class="hero-video-play" type="button" id="hero-video-play" aria-label="Воспроизвести демо">
+        <svg viewBox="0 0 24 24" fill="#fff" width="32" height="32"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="https://fotoklass.lumir.photo/projects" class="btn-primary">Попробовать бесплатно →</a>
+      <a href="https://t.me/lumirphoto_bot" class="btn-ghost">Записаться на демо</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFOGRAPHIC -->
+<section>
+  <div class="wrap">
+    <div class="info-row">
+      <div>
+        <div class="faces-grid">
+          <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+          <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+          <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+          <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+          <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+        </div>
+        <div class="info-label">25 учеников</div>
+      </div>
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-badge">Lumir AI</div>
+      </div>
+      <div>
+        <div class="albums-stack">
+          <div class="album-card a1"><div class="inner"><div class="album-page"><div class="album-photo"></div><div class="album-line"></div><div class="album-line short"></div></div><div class="album-page"><div class="album-photo"></div><div class="album-line"></div></div></div></div>
+          <div class="album-card a2"><div class="inner"><div class="album-page"><div class="album-photo"></div><div class="album-line"></div><div class="album-line short"></div></div><div class="album-page"><div class="album-photo"></div><div class="album-line"></div></div></div></div>
+          <div class="album-card a3"><div class="inner"><div class="album-page"><div class="album-photo"></div><div class="album-line"></div><div class="album-line short"></div></div><div class="album-page"><div class="album-photo"></div><div class="album-line"></div></div></div><span class="album-count">×25</span></div>
+        </div>
+        <div class="info-label">25 индивидуальных альбомов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="features-head">
+      <h2>Всё что нужно</h2>
+      <p>От загрузки фото до готовых макетов в типографию</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Распознавание лиц</h3>
+        <p>AI определяет каждого ученика и группирует фото автоматически</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"/></svg></div>
+        <h3>Лучший кадр из серии</h3>
+        <p>Из 8 похожих — выбирает один с фокусом и открытыми глазами</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+        <h3>Ваши PSD-дизайны</h3>
+        <p>Загрузите свои макеты — Lumir соберёт альбомы в вашем стиле</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Водяные знаки</h3>
+        <p>Фото защищены. Ученики видят превью, оригиналы не скачать</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Утверждение с телефона</h3>
+        <p>Ученик открывает ссылку, листает альбом, утверждает — готово</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+        <h3>Любая типография</h3>
+        <p>Фотодом, Булгакбук, Фабрика фотокниги — или добавим вашу</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="price-card">
+      <div class="price-tag">Фикс прайс</div>
+      <div class="price-amount">980<span> ₽</span></div>
+      <div class="price-unit">за весь класс</div>
+      <div class="price-meta">
+        <div class="price-row"><span class="label">Альбомов</span><span class="value accent">Без лимита</span></div>
+        <div class="price-row"><span class="label">Разворотов</span><span class="value accent">Без лимита</span></div>
+        <div class="price-row"><span class="label">Экспорт в печать</span><span class="value">Включён</span></div>
+        <div class="price-row"><span class="label">Адаптация PSD</span><span class="value accent">Бесплатно</span></div>
+      </div>
+      <div class="price-promo">
+        <span class="dot"></span>
+        <p>Первым 500 фотографам — <strong>10 000 ₽ на баланс</strong> и скидка 50% на печать</p>
+      </div>
+      <a href="https://fotoklass.lumir.photo/projects" class="btn-primary" style="margin-top:28px;width:100%;justify-content:center">Начать бесплатно →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Сколько стоит?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><div><div class="faq-a-content">Один класс — 980 ₽, и не важно, сколько альбомов, учеников и разворотов. Собрать альбомы и согласовать с заказчиком — бесплатно. Платите только когда нужно скачать файлы на печать.</div></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Можно ли загрузить свои дизайны?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><div><div class="faq-a-content">Да, загружайте PSD — Lumir соберёт макеты в ваших дизайнах. Ваш дизайн виден только вам. Первым пользователям адаптируем бесплатно.</div></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Где хранятся данные?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><div><div class="faq-a-content">В дата-центре в Москве. Зарегистрированы в Роскомнадзоре как оператор персональных данных. Распознавание лиц работает только внутри вашего проекта.</div></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Можно ли менять макеты после сборки?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><div><div class="faq-a-content">Да. Движок собирает черновик автоматически — дальше правите точечно: фото, порядок, раскладки, тексты. Финальное слово за вами.</div></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">С какими типографиями работаете?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><div><div class="faq-a-content">Со всеми. Уже подключены Фотодом, Булгакбук и Фабрика фотокниги. Напишите свою — быстро добавим.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-brand"><span class="mark"></span>Lumir Photo</div>
+    <div class="footer-links">
+      <a href="https://t.me/lumir_photo">Telegram</a>
+      <a href="https://vk.ru/lumir.photo">VK</a>
+      <a href="mailto:info@lumir.photo">info@lumir.photo</a>
+      <a href="https://t.me/lumirphoto_bot">Поддержка</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Lumir Photo &middot; Серверы в РФ &middot; 152-ФЗ &middot; Реестр Роскомнадзора</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(function(item){
+  item.querySelector('.faq-q').addEventListener('click',function(){
+    var open=item.getAttribute('data-open')==='true';
+    document.querySelectorAll('.faq-item').forEach(function(o){
+      if(o!==item){o.setAttribute('data-open','false');o.querySelector('.faq-q').setAttribute('aria-expanded','false')}
+    });
+    item.setAttribute('data-open',String(!open));
+    this.setAttribute('aria-expanded',String(!open));
+  });
+});
+
+// Hero video
+var hw=document.getElementById('hero-video-wrap');
+var hv=document.getElementById('hero-video');
+var hp=document.getElementById('hero-video-play');
+if(hw&&hv&&hp){
+  hp.addEventListener('click',function(){
+    hw.classList.add('playing');
+    var p=hv.play();if(p&&p.catch)p.catch(function(){});
+  });
+  hv.addEventListener('play',function(){hw.classList.add('playing')});
+  hv.addEventListener('pause',function(){if(hv.currentTime===0||hv.ended)hw.classList.remove('playing')});
+  hv.addEventListener('ended',function(){hw.classList.remove('playing')});
+}
+</script>
+</body>
+</html>
