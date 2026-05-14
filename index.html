@@ -55,10 +55,10 @@ nav{
 }
 .nav-logo{
   display:flex;align-items:center;flex-shrink:0;
-}
-.nav-logo img{
-  height:20px;width:auto;display:block;
-  filter:brightness(0) invert(1);opacity:.92;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:18px;font-weight:800;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.92);
 }
 .nav-right{display:flex;align-items:center;gap:24px;flex-shrink:0}
 .nav-links{display:flex;gap:28px;font-size:15px;font-weight:500;color:var(--text-2)}
@@ -78,7 +78,7 @@ nav{
 @media(max-width:768px){
   nav{padding:12px 16px}
   .nav-links{display:none}
-  .nav-logo img{height:16px}
+  .nav-logo{font-size:15px}
   .nav-login{padding:9px 18px;font-size:11px}
   .nav-burger{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -184,38 +184,121 @@ h1 em{
 }
 .hero-video-placeholder{
   position:absolute;inset:0;z-index:1;
+  overflow:hidden;
   background:
-    radial-gradient(ellipse at 20% 20%,rgba(139,127,245,.18) 0%,transparent 50%),
-    radial-gradient(ellipse at 80% 80%,rgba(216,120,145,.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 18% -10%,rgba(139,127,245,.45) 0%,transparent 55%),
+    radial-gradient(ellipse at 110% 110%,rgba(216,120,145,.3) 0%,transparent 55%),
     linear-gradient(135deg,#0d0b14 0%,#151220 50%,#0d0b14 100%);
-  display:flex;align-items:center;justify-content:center;
+  display:grid;grid-template-columns:1.05fr 1fr;
+  align-items:center;
   transition:opacity .3s;
 }
-.hero-video-placeholder-inner{
-  text-align:center;padding:40px;max-width:420px;
+.hero-video-placeholder::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.35) 100%);
+  pointer-events:none;
 }
-.hero-video-placeholder-inner h3{
-  font-size:clamp(20px,3vw,28px);font-weight:700;
-  letter-spacing:-.02em;line-height:1.15;
-  color:rgba(255,255,255,.9);margin-bottom:10px;
+.hero-video-placeholder-tag{
+  position:absolute;z-index:3;top:22px;left:22px;
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;padding:7px 14px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
 }
-.hero-video-placeholder-inner h3 em{
+.hero-video-placeholder-tag .pulse{
+  width:7px;height:7px;border-radius:50%;
+  background:#D87891;
+  box-shadow:0 0 0 4px rgba(216,120,145,.22);
+}
+.hero-video-placeholder-text{
+  position:relative;z-index:2;
+  padding:56px;
+  display:flex;flex-direction:column;gap:18px;
+}
+.hero-video-placeholder-title{
+  font-weight:700;font-size:clamp(22px,3.5vw,34px);
+  line-height:1.12;letter-spacing:-.02em;
+  color:#fff;max-width:16ch;text-wrap:balance;
+}
+.hero-video-placeholder-title em{
   font-style:normal;
   background:linear-gradient(135deg,#c8b6ff,#f5b6cb);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero-video-placeholder-inner p{
-  font-size:14px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:14px;
+.hero-video-placeholder-sub{
+  font-size:15px;line-height:1.5;
+  color:rgba(255,255,255,.55);max-width:34ch;
 }
-.hero-video-meta-chips{
-  display:flex;gap:6px;justify-content:center;
+.hero-video-placeholder-meta{
+  display:flex;gap:8px;align-items:center;margin-top:6px;
+  font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
 }
-.hero-video-meta-chips span{
-  font-size:11px;font-weight:600;letter-spacing:.06em;
-  color:rgba(255,255,255,.4);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:100px;padding:4px 10px;
+.hero-video-placeholder-meta .chip{
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;padding:5px 11px;
 }
+.hero-video-placeholder-mock{
+  position:relative;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 32px;
+}
+.hero-video-placeholder-spread{
+  position:absolute;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:6px;
+  box-shadow:0 32px 64px -12px rgba(0,0,0,.55),0 14px 28px rgba(0,0,0,.32);
+  width:58%;aspect-ratio:1.32/1;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8px;padding:12px;
+}
+.hero-video-placeholder-spread .page{
+  display:flex;flex-direction:column;gap:6px;min-width:0;
+}
+.hero-video-placeholder-spread .photo{
+  flex:1;border-radius:3px;min-height:0;
+}
+.hero-video-placeholder-spread .strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+}
+.hero-video-placeholder-spread .strip i{
+  display:block;aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,.08);
+}
+.hero-video-placeholder-spread .caption{
+  height:6px;background:rgba(255,255,255,.08);border-radius:1px;width:60%;
+}
+.hero-video-placeholder-spread.s1{transform:translate(-26%,-16%) rotate(-9deg);width:50%;opacity:.78;filter:blur(.4px)}
+.hero-video-placeholder-spread.s2{transform:translate(-2%,4%) rotate(2deg);z-index:2}
+.hero-video-placeholder-spread.s3{transform:translate(26%,22%) rotate(8deg);width:50%;opacity:.86;filter:blur(.4px)}
+.hero-video-placeholder-spread .photo.p1{background:linear-gradient(135deg,#8b7ff5,#c86898)}
+.hero-video-placeholder-spread .photo.p2{background:linear-gradient(135deg,#d87891,#f2b98d)}
+.hero-video-placeholder-spread .photo.p3{background:linear-gradient(135deg,#6b8fd8,#9b5ed0)}
+.hero-video-placeholder-spread .photo.p4{background:linear-gradient(135deg,#4a5ba8,#7b72c8)}
+.hero-video-placeholder-spread .photo.p5{background:linear-gradient(135deg,#c86898,#ffa37a)}
+.hero-video-placeholder-spread .photo.p6{background:linear-gradient(135deg,#5c8fae,#7b72c8)}
+.hero-video-placeholder-brand{
+  position:absolute;z-index:3;right:22px;bottom:22px;
+  font-weight:700;font-size:13px;letter-spacing:.04em;
+  color:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:8px;
+}
+.hero-video-placeholder-brand .lumir-mark{
+  width:18px;height:18px;border-radius:5px;
+  background:linear-gradient(135deg,#8b7ff5,#d87891);
+}
+.hero-video-meta-bar{
+  position:absolute;z-index:2;left:24px;bottom:24px;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:999px;padding:8px 16px 8px 12px;
+  font-weight:600;font-size:13px;color:#fff;letter-spacing:.02em;
+}
+.hero-video-meta-bar .dot{width:6px;height:6px;border-radius:999px;background:#5BC97A}
 .hero-video-play{
   position:absolute;z-index:2;
   left:50%;top:50%;transform:translate(-50%,-50%);
@@ -385,66 +468,76 @@ h1 em{
   border-top:1px solid var(--border);
   text-align:center;
 }
-.price-card{
-  display:inline-flex;flex-direction:column;align-items:center;
+.pv-v2-wrap{
+  max-width:900px;margin:0 auto;position:relative;z-index:2;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px;
+}
+.pv-v2-eyebrow{
+  font-size:14px;font-weight:600;color:var(--accent);
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.pv-v2-card{
+  position:relative;
   background:var(--bg-card);
   border:1px solid var(--border);
   border-radius:20px;
-  padding:48px 56px 40px;
-  position:relative;
-  max-width:480px;
-  width:100%;
+  padding:52px 56px 42px;
+  width:100%;max-width:740px;
+  box-shadow:0 2px 4px rgba(0,0,0,.2),0 8px 16px rgba(0,0,0,.15),0 28px 56px rgba(0,0,0,.2);
+  transition:box-shadow .3s;
 }
-.price-card::before{
+.pv-v2-card:hover{
+  box-shadow:0 4px 8px rgba(0,0,0,.2),0 16px 32px rgba(0,0,0,.2),0 36px 64px rgba(139,127,245,.12);
+}
+.pv-v2-card::before{
   content:'';position:absolute;
-  top:0;left:24px;right:24px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  left:20px;right:20px;top:0;height:2px;
+  background:linear-gradient(135deg,#8b7ff5 0%,#d87891 100%);
+  border-radius:0 0 2px 2px;opacity:.85;
 }
-.price-tag{
-  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:20px;
+.pv-v2-row{
+  display:flex;align-items:flex-end;gap:40px;justify-content:space-between;
 }
-.price-amount{
-  font-size:clamp(56px,10vw,80px);
-  font-weight:700;letter-spacing:-.04em;line-height:.9;
+.pv-v2-pricecol{
+  display:flex;flex-direction:column;align-items:flex-start;gap:5px;flex-shrink:0;
+}
+.pv-v2-kicker{
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-3);
+}
+.pv-v2-amount{
+  font-weight:800;font-size:clamp(80px,11vw,134px);line-height:.9;letter-spacing:-.03em;
   background:linear-gradient(135deg,#8b7ff5 0%,#d87891 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin-bottom:8px;
 }
-.price-amount span{font-size:.5em;font-weight:600}
-.price-unit{font-size:16px;color:var(--text-2);margin-bottom:32px}
-.price-meta{
-  width:100%;
-  border-top:1px solid var(--border);
-  display:flex;flex-direction:column;
+.pv-v2-amount-rub{font-size:.5em;font-weight:700;margin-left:.04em;letter-spacing:-.02em}
+.pv-v2-priceTail{font-weight:500;color:var(--text-2);font-size:18px;margin-top:2px;letter-spacing:-.01em}
+.pv-v2-metacol{
+  flex:1;display:flex;flex-direction:column;
+  border-top:1px dashed rgba(255,255,255,.12);
+  margin-bottom:14px;min-width:250px;
 }
-.price-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
-  font-size:14px;
+.pv-v2-metarow{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.08);gap:14px;
 }
-.price-row:last-child{border-bottom:0}
-.price-row .label{color:var(--text-2)}
-.price-row .value{font-weight:600;color:var(--text-1)}
-.price-row .value.accent{color:var(--accent)}
-.price-promo{
-  display:flex;align-items:center;gap:12px;
-  margin-top:28px;
-  padding:14px 20px;
-  background:var(--accent-dim);
-  border:1px solid rgba(139,127,245,.15);
-  border-radius:12px;
-  width:100%;
+.pv-v2-metarow:last-child{border-bottom:0}
+.pv-v2-metalabel{font-size:14px;color:var(--text-2)}
+.pv-v2-metavalue{font-size:13px;font-weight:600;color:var(--text-1);letter-spacing:-.005em;white-space:nowrap}
+.pv-v2-metavalue--accent{color:var(--accent)}
+.pv-v2-foot{
+  margin-top:26px;padding-top:17px;
+  border-top:1px dashed rgba(255,255,255,.12);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
 }
-.price-promo .dot{
-  width:8px;height:8px;border-radius:50%;background:#10b981;flex-shrink:0;
-  box-shadow:0 0 0 0 rgba(16,185,129,.4);
-  animation:pulse-dot 2s infinite;
+.pv-v2-promo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px}
+.pv-v2-promo-old{font-weight:700;font-size:22px;color:var(--text-3);text-decoration:line-through}
+.pv-v2-promo-badge{
+  font-weight:700;font-size:18px;color:#fff;
+  background:var(--accent);padding:8px 20px;border-radius:100px;
+  text-decoration:none;
 }
-@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(16,185,129,.4)}100%{box-shadow:0 0 0 10px rgba(16,185,129,0)}}
-.price-promo p{font-size:13px;color:var(--text-2);text-align:left}
-.price-promo strong{color:var(--accent);font-weight:600}
+.pv-v2-footnote{font-size:14px;color:var(--text-2);line-height:1.5;margin:0;text-align:center}
 
 /* ── FAQ ─────────────────────────────────── */
 .faq{padding:80px 0;border-top:1px solid var(--border)}
@@ -498,9 +591,11 @@ footer{
 }
 .footer-brand{text-align:left}
 .footer-brand .footer-logo{display:inline-block;margin-bottom:18px}
-.footer-brand .footer-logo img{
-  height:22px;width:auto;display:block;
-  filter:brightness(0) invert(1);opacity:.92;
+.footer-brand .footer-logo{
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:18px;font-weight:800;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.92);
 }
 .footer-brand p{font-size:14px;line-height:1.55;color:rgba(255,255,255,.4);max-width:42ch}
 .footer-col{text-align:left}
@@ -540,7 +635,24 @@ footer{
   .hero{padding:80px 0 64px}
   .info-row{grid-template-columns:1fr;gap:24px}
   .arrow-line{transform:rotate(90deg);width:60px}
-  .price-card{padding:36px 28px 32px}
+  .hero-video-placeholder{grid-template-columns:1fr}
+  .hero-video-placeholder::after{display:none}
+  .hero-video-placeholder-text,.hero-video-placeholder-mock,
+  .hero-video-placeholder-brand,.hero-video-placeholder-tag,
+  .hero-video-meta-bar{display:none!important}
+  .pv-v2-card{padding:28px 22px 20px;border-radius:18px}
+  .pv-v2-card::before{left:12px;right:12px}
+  .pv-v2-row{flex-direction:column;align-items:stretch;gap:14px}
+  .pv-v2-pricecol{align-items:flex-start;gap:2px}
+  .pv-v2-kicker{font-size:11px}
+  .pv-v2-amount{font-size:clamp(76px,18vw,108px)}
+  .pv-v2-priceTail{font-size:16px;margin-top:0}
+  .pv-v2-metacol{min-width:0;margin-bottom:0}
+  .pv-v2-foot{gap:14px;margin-top:14px;padding-top:14px}
+  .pv-v2-footnote{font-size:12.5px;line-height:1.45}
+  .pv-v2-promo{gap:8px}
+  .pv-v2-promo-old{font-size:18px}
+  .pv-v2-promo-badge{font-size:15px;padding:6px 14px}
   .hero-ctas{flex-direction:column;align-items:center}
   .btn-primary,.btn-ghost{width:100%;max-width:280px;justify-content:center}
 }
@@ -552,7 +664,7 @@ footer{
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="nav-logo"><img src="assets/logo-lumir-photo.png" alt="Lumir Photo" width="585" height="72" decoding="async" /></div>
+    <div class="nav-logo">LUMIR PHOTO</div>
     <div class="nav-right">
       <div class="nav-links">
         <a href="#pricing">Стоимость</a>
@@ -583,15 +695,36 @@ footer{
         <source src="placeholder-4x3.mp4" type="video/mp4" />
       </video>
       <div class="hero-video-placeholder" aria-hidden="true">
-        <div class="hero-video-placeholder-inner">
-          <h3>От папки фотографий до <em>готового альбома</em></h3>
-          <p>Распознавание лиц, AI-вёрстка, выгрузка в типографию</p>
-          <div class="hero-video-meta-chips"><span>02:14</span><span>HD</span></div>
+        <span class="hero-video-placeholder-tag"><span class="pulse"></span>Демо · заглушка</span>
+        <div class="hero-video-placeholder-text">
+          <h3 class="hero-video-placeholder-title">От папки фотографий до <em>готового альбома</em></h3>
+          <p class="hero-video-placeholder-sub">Покажем весь поток Lumir: распознавание лиц, распределение по разворотам, AI-вёрстку, выгрузку в типографию</p>
+          <div class="hero-video-placeholder-meta">
+            <span class="chip">02:14</span>
+            <span class="chip">RU</span>
+            <span class="chip">HD</span>
+          </div>
         </div>
+        <div class="hero-video-placeholder-mock">
+          <div class="hero-video-placeholder-spread s1">
+            <div class="page"><div class="photo p1"></div><div class="strip"><i></i><i></i><i></i><i></i></div></div>
+            <div class="page"><div class="photo p2"></div><div class="caption"></div></div>
+          </div>
+          <div class="hero-video-placeholder-spread s2">
+            <div class="page"><div class="photo p3"></div><div class="strip"><i></i><i></i><i></i><i></i></div></div>
+            <div class="page"><div class="photo p4"></div><div class="caption"></div></div>
+          </div>
+          <div class="hero-video-placeholder-spread s3">
+            <div class="page"><div class="photo p5"></div><div class="strip"><i></i><i></i><i></i><i></i></div></div>
+            <div class="page"><div class="photo p6"></div><div class="caption"></div></div>
+          </div>
+        </div>
+        <div class="hero-video-placeholder-brand"><span class="lumir-mark"></span>lumir.photo</div>
       </div>
       <button class="hero-video-play" type="button" id="hero-video-play" aria-label="Воспроизвести демо">
         <svg viewBox="0 0 24 24" fill="#fff" width="32" height="32"><path d="M8 5v14l11-7z"/></svg>
       </button>
+      <div class="hero-video-meta-bar"><span class="dot"></span><span>Демо · 1 минута</span></div>
     </div>
 
     <p class="hero-sub" style="margin-top:32px;margin-bottom:24px">Lumir распознаёт лица, выбирает лучшие кадры и собирает индивидуальные альбомы для каждого ребёнка</p>
@@ -677,21 +810,32 @@ footer{
 <!-- PRICING -->
 <section class="pricing" id="pricing">
   <div class="wrap">
-    <div class="price-card">
-      <div class="price-tag">Фикс прайс</div>
-      <div class="price-amount">980<span> ₽</span></div>
-      <div class="price-unit">за весь класс</div>
-      <div class="price-meta">
-        <div class="price-row"><span class="label">Альбомов</span><span class="value accent">Без лимита</span></div>
-        <div class="price-row"><span class="label">Разворотов</span><span class="value accent">Без лимита</span></div>
-        <div class="price-row"><span class="label">Экспорт в печать</span><span class="value">Включён</span></div>
-        <div class="price-row"><span class="label">Адаптация PSD</span><span class="value accent">Бесплатно</span></div>
+    <div class="pv-v2-wrap">
+      <div class="pv-v2-eyebrow">Фикс прайс</div>
+      <div class="pv-v2-card">
+        <div class="pv-v2-row">
+          <div class="pv-v2-pricecol">
+            <div class="pv-v2-kicker">Обычная стоимость</div>
+            <div class="pv-v2-amount">980<span class="pv-v2-amount-rub">₽</span></div>
+            <div class="pv-v2-priceTail">за весь класс</div>
+          </div>
+          <div class="pv-v2-metacol">
+            <div class="pv-v2-metarow"><div class="pv-v2-metalabel">Объём проекта</div><div class="pv-v2-metavalue">1 класс целиком</div></div>
+            <div class="pv-v2-metarow"><div class="pv-v2-metalabel">Альбомов в проекте</div><div class="pv-v2-metavalue pv-v2-metavalue--accent">Без лимита</div></div>
+            <div class="pv-v2-metarow"><div class="pv-v2-metalabel">Разворотов в альбоме</div><div class="pv-v2-metavalue pv-v2-metavalue--accent">Без лимита</div></div>
+            <div class="pv-v2-metarow"><div class="pv-v2-metalabel">Экспорт в печать</div><div class="pv-v2-metavalue">Включён</div></div>
+            <div class="pv-v2-metarow"><div class="pv-v2-metalabel">Адаптация PSD</div><div class="pv-v2-metavalue pv-v2-metavalue--accent">Бесплатно</div></div>
+          </div>
+        </div>
+        <div class="pv-v2-foot">
+          <div class="pv-v2-promo">
+            <span class="pv-v2-promo-old">980 ₽</span>
+            <a href="https://t.me/lumirphoto_bot" class="pv-v2-promo-badge">10 000 ₽ на баланс</a>
+          </div>
+          <p class="pv-v2-footnote">Первым 500 фотографам — хватит на 10 классов</p>
+        </div>
       </div>
-      <div class="price-promo">
-        <span class="dot"></span>
-        <p>Первым 500 фотографам — <strong>10 000 ₽ на баланс</strong> и скидка 50% на печать</p>
-      </div>
-      <a href="https://fotoklass.lumir.photo/projects" class="btn-primary" style="margin-top:28px;width:100%;justify-content:center">Попробовать</a>
+      <a href="https://fotoklass.lumir.photo/projects" class="btn-primary" style="margin-top:8px">Попробовать</a>
     </div>
   </div>
 </section>
@@ -730,7 +874,7 @@ footer{
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="footer-logo" aria-label="Lumir Photo"><img src="assets/logo-lumir-photo.png" alt="Lumir Photo" width="585" height="72" loading="lazy" decoding="async" /></a>
+        <a href="/" class="footer-logo" aria-label="Lumir Photo">LUMIR PHOTO</a>
         <p>Автоверстка школьных альбомов</p>
       </div>
       <div class="footer-col">
