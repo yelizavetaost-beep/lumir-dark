@@ -538,6 +538,14 @@ body.nav-open .scroll-wrapper{margin-left:200px}
 }
 .sticky-counter-text .premium-pulse{width:8px;height:8px}
 .sticky-counter .btn-primary{padding:10px 22px;font-size:12px;box-shadow:none}
+.sticky-counter-close{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;line-height:1;color:var(--text-3);
+  transition:color .15s,background .15s;
+}
+.sticky-counter-close:hover{color:var(--text-1);background:rgba(255,255,255,.08)}
 
 /* ── MOBILE ─────────────────────────────── */
 @media(max-width:768px){
@@ -815,6 +823,7 @@ body.nav-open .scroll-wrapper{margin-left:200px}
     <span>Осталось <span data-slots-remaining>367</span> мест из 500</span>
   </div>
   <a href="https://fotoklass.lumir.photo/projects" class="btn-primary">Попробовать</a>
+  <button class="sticky-counter-close" id="sticky-close" type="button" aria-label="Закрыть">&times;</button>
 </div>
 
 <script>
@@ -833,6 +842,11 @@ body.nav-open .scroll-wrapper{margin-left:200px}
   var slidesEl = document.getElementById('scroll-slides');
   var progressBar = document.getElementById('progress-bar');
   var stickyBar = document.getElementById('sticky-counter');
+  var stickyDismissed = false;
+  document.getElementById('sticky-close').addEventListener('click', function() {
+    stickyBar.classList.remove('visible');
+    stickyDismissed = true;
+  });
   var totalSlides = slides.length;
   var current = 0;
   var isAnimating = false;
@@ -861,7 +875,7 @@ body.nav-open .scroll-wrapper{margin-left:200px}
     progressBar.style.width = pct + '%';
 
     // Sticky counter: show after leaving hero
-    stickyBar.classList.toggle('visible', current > 0);
+    if (!stickyDismissed) stickyBar.classList.toggle('visible', current > 0);
 
     setTimeout(function() {
       slides.forEach(function(s, i) {
