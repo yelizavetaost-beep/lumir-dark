@@ -24,7 +24,9 @@
   --accent-glow:rgba(139,127,245,.08);
   --font:'Inter',system-ui,-apple-system,sans-serif;
 }
-html{scroll-behavior:auto}
+html,body{
+  height:100%;overflow:hidden;
+}
 body{
   font-family:var(--font);
   background:var(--bg);
@@ -32,7 +34,6 @@ body{
   font-size:15px;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit}
@@ -40,55 +41,49 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 /* ── LEFT SIDE NAV ──────────────────────── */
 .side-nav{
   position:fixed;left:0;top:0;bottom:0;z-index:100;
-  width:56px;
-  display:flex;flex-direction:column;align-items:center;
-  padding:20px 0;
+  width:200px;
+  display:flex;flex-direction:column;
+  padding:28px 24px;
   background:rgba(10,10,11,.6);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-right:1px solid var(--border);
 }
 .side-nav-logo{
-  font-family:var(--font);font-weight:800;font-size:11px;
-  letter-spacing:.08em;color:var(--text-1);
-  writing-mode:vertical-rl;text-orientation:mixed;
-  transform:rotate(180deg);
-  margin-bottom:auto;
-  opacity:.7;transition:opacity .2s;
+  font-family:var(--font);font-weight:800;font-size:16px;
+  letter-spacing:.06em;color:var(--text-1);
+  margin-bottom:48px;
+  opacity:.9;transition:opacity .2s;
 }
 .side-nav-logo:hover{opacity:1}
 .side-nav-dots{
-  display:flex;flex-direction:column;gap:14px;
+  display:flex;flex-direction:column;gap:4px;
   margin-bottom:auto;
 }
 .side-nav-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,.15);
-  border:none;cursor:pointer;
-  transition:background .25s,transform .25s,box-shadow .25s;
-  position:relative;
+  display:flex;align-items:center;gap:12px;
+  background:none;border:none;cursor:pointer;
+  padding:10px 12px;border-radius:8px;
+  font-size:14px;font-weight:500;color:var(--text-3);
+  transition:color .2s,background .2s;
+  text-align:left;
 }
-.side-nav-dot.active{
+.side-nav-dot::before{
+  content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,.15);
+  transition:background .25s,box-shadow .25s,transform .25s;
+}
+.side-nav-dot.active{color:var(--text-1);background:rgba(255,255,255,.04)}
+.side-nav-dot.active::before{
   background:var(--accent);
   box-shadow:0 0 0 4px rgba(139,127,245,.2);
-  transform:scale(1.3);
+  transform:scale(1.2);
 }
-.side-nav-dot:hover{background:rgba(255,255,255,.4)}
-.side-nav-dot::after{
-  content:attr(data-label);
-  position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);
-  font-size:12px;font-weight:600;color:var(--text-2);
-  white-space:nowrap;
-  opacity:0;pointer-events:none;
-  transition:opacity .2s;
-}
-.side-nav-dot:hover::after{opacity:1}
+.side-nav-dot:hover{color:var(--text-2);background:rgba(255,255,255,.03)}
 .side-nav-cta{
-  font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
   background:var(--accent);color:#fff;
-  border:none;border-radius:40px;padding:8px 6px;
-  writing-mode:vertical-rl;text-orientation:mixed;
-  transform:rotate(180deg);
-  text-decoration:none;
+  border:none;border-radius:40px;padding:12px 20px;
+  text-decoration:none;text-align:center;
   transition:background .15s;
 }
 .side-nav-cta:hover{background:#6C63B5}
@@ -96,7 +91,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 /* ── HORIZONTAL SCROLL CONTAINER ────────── */
 .scroll-wrapper{
   position:relative;
-  margin-left:56px;
+  margin-left:200px;
 }
 .scroll-track{
   position:sticky;top:0;
@@ -111,7 +106,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 }
 .slide{
   flex:0 0 100%;
-  width:calc(100vw - 56px);
+  width:calc(100vw - 200px);
   height:100vh;
   display:flex;align-items:center;justify-content:center;
   position:relative;
@@ -478,7 +473,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 /* ── SCROLL PROGRESS ────────────────────── */
 .scroll-progress{
-  position:fixed;top:0;left:56px;right:0;height:2px;z-index:99;
+  position:fixed;top:0;left:200px;right:0;height:2px;z-index:99;
   background:var(--border);
 }
 .scroll-progress-bar{
@@ -489,7 +484,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 
 /* ── STICKY COUNTER ─────────────────────── */
 .sticky-counter{
-  position:fixed;bottom:0;left:56px;right:0;z-index:90;
+  position:fixed;bottom:0;left:200px;right:0;z-index:90;
   background:rgba(10,10,11,.85);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-top:1px solid var(--border);
@@ -511,6 +506,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
   .scroll-wrapper{margin-left:0}
   .scroll-progress{left:0}
   .sticky-counter{left:0}
+  .slide{width:100vw}
   .slide{padding:32px 20px}
   .grid{grid-template-columns:1fr}
   .premium-grid{grid-template-columns:1fr 1fr}
@@ -540,11 +536,11 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
 <nav class="side-nav" id="side-nav">
   <a href="#" class="side-nav-logo">LUMIR PHOTO</a>
   <div class="side-nav-dots">
-    <button class="side-nav-dot active" data-slide="0" data-label="Главная" type="button"></button>
-    <button class="side-nav-dot" data-slide="1" data-label="Демо" type="button"></button>
-    <button class="side-nav-dot" data-slide="2" data-label="Возможности" type="button"></button>
-    <button class="side-nav-dot" data-slide="3" data-label="Стоимость" type="button"></button>
-    <button class="side-nav-dot" data-slide="4" data-label="Premium" type="button"></button>
+    <button class="side-nav-dot active" data-slide="0" type="button">Главная</button>
+    <button class="side-nav-dot" data-slide="1" type="button">Демо</button>
+    <button class="side-nav-dot" data-slide="2" type="button">Возможности</button>
+    <button class="side-nav-dot" data-slide="3" type="button">Стоимость</button>
+    <button class="side-nav-dot" data-slide="4" type="button">Premium</button>
   </div>
   <a href="https://fotoklass.lumir.photo/projects" class="side-nav-cta">Войти</a>
 </nav>
@@ -787,10 +783,6 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
   var touchStartY = 0;
   var touchStartX = 0;
 
-  // Set wrapper height to create scroll space
-  var scrollMultiplier = totalSlides;
-  wrapper.style.height = (scrollMultiplier * 100) + 'vh';
-
   function goTo(index, smooth) {
     if (index < 0 || index >= totalSlides || index === current) return;
     isAnimating = true;
@@ -891,9 +883,6 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
     hv.addEventListener('ended', function() { hw.classList.remove('playing'); });
   }
 
-  // Prevent default scroll on the page since we handle it manually
-  document.body.style.overflow = 'hidden';
-  document.documentElement.style.overflow = 'hidden';
 })();
 </script>
 </body>
