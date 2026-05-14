@@ -49,6 +49,7 @@ button{border:0;background:transparent;cursor:pointer;font:inherit;color:inherit
   border-right:1px solid var(--border);
   transition:width .35s cubic-bezier(.4,0,.2,1);
   overflow:hidden;
+  cursor:pointer;
 }
 .side-nav.open{width:200px}
 .side-nav-header{
@@ -911,8 +912,8 @@ body.nav-open .scroll-wrapper{margin-left:200px}
 (function(){
   // Nav toggle
   var sideNav = document.getElementById('side-nav');
-  var navToggle = document.getElementById('nav-toggle');
-  navToggle.addEventListener('click', function() {
+  sideNav.addEventListener('click', function(e) {
+    if (e.target.closest('.side-nav-dot') || e.target.closest('.side-nav-cta') || e.target.closest('.side-nav-cta-icon')) return;
     sideNav.classList.toggle('open');
     document.body.classList.toggle('nav-open');
   });
